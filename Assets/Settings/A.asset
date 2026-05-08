@@ -21,9 +21,9 @@ MonoBehaviour:
   decayRate: 0.2
   diffuseRate: 3
   speciesSettings:
-  - moveSpeed: 20
-    turnSpeed: 2
-    sensorAngleSpacing: 30
-    sensorOffsetDst: 35
+  - moveSpeed: 61.5
+    turnSpeed: 5.35
+    sensorAngleSpacing: 28
+    sensorOffsetDst: 21.6
     sensorSize: 1
     colour: {r: 1, g: 1, b: 1, a: 0}
