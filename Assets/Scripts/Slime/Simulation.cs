@@ -10,6 +10,12 @@ public class Simulation : MonoBehaviour
 	const int diffuseMapKernel = 1;
 	const int colourKernel = 2;
 
+	void Awake()
+	{
+		Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+		Screen.SetResolution(Display.main.systemWidth, Display.main.systemHeight, true);
+	}
+
 	public ComputeShader compute;
 	public ComputeShader drawAgentsCS;
 
@@ -20,10 +26,17 @@ public class Simulation : MonoBehaviour
 	public FilterMode filterMode = FilterMode.Point;
 	public GraphicsFormat format = ComputeHelper.defaultGraphicsFormat;
 
+	[Header("Recorder Settings")]
+	public bool recordSimulation = false;
+	public bool autoStartRecorder = true;
+	public int recorderFrameRate = 30;
+	public string recorderFolder = "Assets/Recordings";
+	public string recordingFileName = "SlimeSimulation";
+
 
 	[SerializeField, HideInInspector] protected RenderTexture trailMap;
 	[SerializeField, HideInInspector] protected RenderTexture diffusedTrailMap;
-	[SerializeField, HideInInspector] protected RenderTexture displayTexture;
+	[SerializeField] public RenderTexture displayTexture;
 
 	ComputeBuffer agentBuffer;
 	ComputeBuffer settingsBuffer;
@@ -133,6 +146,8 @@ public class Simulation : MonoBehaviour
 			ComputeHelper.Dispatch(compute, settings.width, settings.height, 1, kernelIndex : colourKernel);
 		//	ComputeHelper.CopyRenderTexture(trailMap, displayTexture);
 		}
+
+		// Unity Recorder handles the recording when recordSimulation is enabled.
 	}
 
 	void RunSimulation()
